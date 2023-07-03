@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.oyoungy</groupId>
+    <artifactId>universal-wall</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>universal-wall</name>
+    <description>Posting project for oyoungy</description>
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>12</java.version>
+        <spring-boot-version>2.7.4</spring-boot-version>
+        <spring-cloud-version>2021.0.1</spring-cloud-version>
+        <jjwt-version>0.9.0</jjwt-version>
+        <lombok-version>1.18.6</lombok-version>
+        <junit-version>5.6.1</junit-version>
+        <mapper-struct-version>1.5.0.Final</mapper-struct-version>
+        <mysql-version>8.0.28</mysql-version>
+        <hutool-version>5.0.3</hutool-version>
+        <commons-io-version>2.6</commons-io-version>
+        <commons-lang-version>3.10</commons-lang-version>
+        <guava-version>31.1-jre</guava-version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--  spring boot  -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring-boot-version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot-version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+                <version>${spring-boot-version}</version>
+            </dependency>
+
+            <!--  spring cloud  -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--  spring data jpa  -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!--  java json web token  -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!--  lombok  -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <scope>compile</scope>
+                <version>${lombok-version}</version>
+            </dependency>
+
+            <!-- map struct -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapper-struct-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapper-struct-version}</version>
+            </dependency>
+
+            <!-- commons-io -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang-version}</version>
+            </dependency>
+
+            <!-- guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava-version}</version>
+            </dependency>
+
+            <!--  test  -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit-version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <!--   docker support  -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.10</version>
+                <configuration>
+                    <baseImage>java</baseImage>
+                    <imageName>example</imageName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+  <modules>
+    <module>wall-common</module>
+    <module>wall-posting-srv</module>
+    <module>wall-user-srv</module>
+<!--    <module>wall-single-arch</module>-->
+    <module>wall-register-srv</module>
+    <module>wall-config-srv</module>
+    <module>wall-gateway-srv</module>
+    <module>wall-operation-srv</module>
+    <module>wall-audit-srv</module>
+    <module>wall-web-common</module>
+  </modules>
+</project>

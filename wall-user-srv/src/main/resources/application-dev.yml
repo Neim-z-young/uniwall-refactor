@@ -1,0 +1,27 @@
+server:
+  port: 8888
+logging:
+  config: classpath:log4j2.xml
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physicalStrategy: com.oyoungy.config.WallPhysicalTableNamingStrategy
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/universal-wall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC  # Asia/Shanghai
+    username: root
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      read-only: false
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+  sql:
+    init:
+      mode: never
+  jackson:
+    time-zone: GMT+8
