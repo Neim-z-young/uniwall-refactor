@@ -27,6 +27,8 @@
         <commons-io-version>2.6</commons-io-version>
         <commons-lang-version>3.10</commons-lang-version>
         <guava-version>31.1-jre</guava-version>
+        <spring-security-test-version>5.6.0</spring-security-test-version>
+        <h2-db-version>1.4.197</h2-db-version>
     </properties>
 
     <dependencyManagement>
@@ -49,6 +51,11 @@
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot-version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-test</artifactId>
+                <version>${spring-security-test-version}</version>
             </dependency>
 
             <dependency>
@@ -148,8 +155,14 @@
             <!--  test  -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
+                <artifactId>junit-jupiter</artifactId>
                 <version>${junit-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2-db-version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

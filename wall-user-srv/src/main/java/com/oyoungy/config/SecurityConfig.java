@@ -34,16 +34,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain appSecurityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager, JwtTool jwtTool) throws Exception {
-        http.csrf().disable().authorizeHttpRequests()
+        http.authorizeHttpRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers("/*/login").permitAll()
-                .antMatchers("/*/refresh").permitAll()
+                .antMatchers(HttpMethod.GET, "/user/{\\d+}").permitAll()
+                .antMatchers(HttpMethod.POST,
+                        "/*/login",
+                        "/*/refresh",
+                        "/user/register").permitAll()
                 .antMatchers("/user/**").hasRole(jwtTool.getJwtConf().getUserRole())
                 .anyRequest().authenticated()
         ;
         http.addFilterBefore(jwtAuthenticationTokenFilter(authenticationManager, jwtTool), UsernamePasswordAuthenticationFilter.class);
-
+        http.csrf().disable();
         http.sessionManagement()// 基于token，所以不需要session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // 禁用缓存（不使用session，故基本用不上缓存）

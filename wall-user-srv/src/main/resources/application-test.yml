@@ -1,0 +1,21 @@
+server:
+  port: 8888
+logging:
+  config: classpath:log4j2.xml
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        physicalStrategy: com.oyoungy.config.WallPhysicalTableNamingStrategy
+    show-sql: true
+  datasource:
+    url: jdbc:h2:mem:;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;
+    username: root
+    password: secret
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: never
+  jackson:
+    time-zone: GMT+8

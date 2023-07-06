@@ -22,4 +22,6 @@ public interface PermissionRepository extends BaseRepository<Permission, Permiss
     List<RoleId> findAdminRoleId(AdminId id);
 
     void createUserRoleRelation(UserId id, List<RoleId> roleIds);
+
+    Optional<String> getRoleName(RoleId id);
 }

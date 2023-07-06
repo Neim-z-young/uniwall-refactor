@@ -11,14 +11,41 @@ public class JwtUserToken extends AbstractAuthenticationToken {
     private final Long id;
     private String credentials;
 
-    public JwtUserToken(Long id, String credentials) {
+    /**
+     * This factory method can be safely used by any code that wishes to create a
+     * unauthenticated <code>JwtUserToken</code>.
+     * @param id
+     * @param credentials
+     * @return JwtUserToken with false isAuthenticated() result
+     *
+     * @since 5.7
+     */
+    public static JwtUserToken unauthenticated(Long id, String credentials) {
+        return new JwtUserToken(id, credentials);
+    }
+
+    /**
+     * This factory method can be safely used by any code that wishes to create a
+     * authenticated <code>JwtUserToken</code>.
+     * @param id
+     * @param credentials
+     * @return JwtUserToken with true isAuthenticated() result
+     *
+     * @since 5.7
+     */
+    public static JwtUserToken authenticated(Long id, String credentials,
+                                             Collection<? extends GrantedAuthority> authorities) {
+        return new JwtUserToken(id, credentials, authorities);
+    }
+
+    private JwtUserToken(Long id, String credentials) {
         super(null);
         this.id  = id;
         this.credentials = credentials;
         super.setAuthenticated(false);
     }
 
-    public JwtUserToken(Long id, String credentials, Collection<? extends GrantedAuthority> authorities) {
+    private JwtUserToken(Long id, String credentials, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.id  = id;
         this.credentials = credentials;

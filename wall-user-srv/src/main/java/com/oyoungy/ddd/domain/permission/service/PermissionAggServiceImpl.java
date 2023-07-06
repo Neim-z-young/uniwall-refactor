@@ -44,4 +44,9 @@ public class PermissionAggServiceImpl implements PermissionAggService {
         }
         permissionRepository.createUserRoleRelation(id, new ArrayList<>(newRoleIds));
     }
+
+    @Override
+    public List<RoleId> findUserRoles(UserId id) {
+        return permissionRepository.findUserRoleId(id);
+    }
 }

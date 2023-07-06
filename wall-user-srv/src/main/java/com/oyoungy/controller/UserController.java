@@ -6,6 +6,7 @@ import com.oyoungy.ddd.application.command.UserLoginCommand;
 import com.oyoungy.ddd.application.dto.TokenDTO;
 import com.oyoungy.ddd.application.dto.UserDTO;
 import com.oyoungy.ddd.application.command.UserRegisterCommand;
+import com.oyoungy.ddd.application.dto.UserDetailDTO;
 import com.oyoungy.ddd.application.dto.ValidateUserDTO;
 import com.oyoungy.response.ResultDTO;
 import com.oyoungy.service.SessionService;
@@ -32,6 +33,11 @@ public class UserController {
     @GetMapping("/{id}")
     ResultDTO<UserDTO> findUser(@PathVariable long id){
         return ResultDTO.success(userService.queryUser(id));
+    }
+
+    @GetMapping("/info/{id}")
+    ResultDTO<UserDetailDTO> findUserInfo(@PathVariable long id){
+        return ResultDTO.success(userService.queryUserDetail(id));
     }
 
     @PostMapping("/login")

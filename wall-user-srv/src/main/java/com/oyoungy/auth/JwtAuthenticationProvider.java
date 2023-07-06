@@ -27,7 +27,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(jwtTool.getJwtConf().getRolePrefix() + role));
 
-            return new JwtUserToken(
+            return JwtUserToken.authenticated(
                     id,
                     role,
                     authorities);

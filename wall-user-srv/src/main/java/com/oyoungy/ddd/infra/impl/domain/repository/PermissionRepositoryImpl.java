@@ -94,4 +94,9 @@ public class PermissionRepositoryImpl implements PermissionRepository {
         userRoleDAO.saveAll(roleDOS);
     }
 
+    @Override
+    public Optional<String> getRoleName(RoleId id) {
+        return roleDAO.findNameById(id.getId());
+    }
+
 }

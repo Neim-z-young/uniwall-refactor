@@ -45,7 +45,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        preProcessTokenAuthentication();
         String authHeader = ((HttpServletRequest)request).getHeader(jwtTool.getJwtConf().getTokenHeader());
         String tokenHead = jwtTool.getJwtConf().getTokenHead();
         Authentication authentication = null;
@@ -53,12 +52,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         log.info("jwt filter enter");
         log.info("method: {}", request.getMethod());
         if (authHeader != null && authHeader.startsWith(tokenHead)) {
+            preProcessTokenAuthentication();
             String token = authHeader.substring(tokenHead.length() + 1); //authHeader = tokenHead + " " + token
             if (jwtTool.validateAccess(token)) {
                 Long userId = jwtTool.getUserIdFromToken(token);
                 String role = jwtTool.getRoleFromToken(token);
                 log.debug("TOKEN: " + token + " userId: " + userId + " role: " + role);
-                authentication = new JwtUserToken(userId, role);
+                authentication = JwtUserToken.unauthenticated(userId, role);
 
                 try{
                     //交给authenticationProvider代理类进行授权

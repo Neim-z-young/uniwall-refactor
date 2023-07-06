@@ -4,12 +4,11 @@ import com.oyoungy.ddd.domain.permission.service.PermissionAggService;
 import com.oyoungy.ddd.domain.user.entity.UserAgg;
 import com.oyoungy.ddd.domain.user.entity.User;
 import com.oyoungy.ddd.domain.user.entity.UserInfo;
-import com.oyoungy.ddd.domain.permission.repository.PermissionRepository;
 import com.oyoungy.ddd.domain.user.repository.UserRepository;
 import com.oyoungy.ddd.domain.permission.vo.RoleId;
+import com.oyoungy.ddd.domain.user.vo.UserId;
 import com.oyoungy.exceptions.WallBaseException;
 import com.oyoungy.exceptions.WallNotFoundException;
-import com.oyoungy.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,5 +66,24 @@ public class UserAggServiceImpl implements UserAggService {
         user.login();
         userRepository.update4UserLogin(user);
         return user;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserAgg findOne(UserId id) {
+
+        Optional<User> user = userRepository.findOne(id);
+        Optional<UserAgg> resOp = user.map(u -> {
+            UserAgg res = new UserAgg();
+            res.setId(u.getId());
+            res.setUser(u);
+            return res;
+        });
+        resOp.ifPresent(u -> {
+            userRepository.findUserInfo(id).ifPresent(u::setUserInfo);
+            u.setRoles(permissionAggService.findUserRoles(u.getId()));
+        });
+        return resOp.orElseThrow(
+                () -> new WallNotFoundException(MessageFormat.format("用户{0}不存在", id.getId())));
     }
 }

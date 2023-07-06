@@ -11,4 +11,6 @@ public interface PermissionAggService {
     List<RoleId> defaultAdminRole();
 
     void createUserRoleRelation(UserId id, List<RoleId> roleIds);
+
+    List<RoleId> findUserRoles(UserId id);
 }
