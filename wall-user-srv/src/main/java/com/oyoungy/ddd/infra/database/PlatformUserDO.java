@@ -6,9 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -22,6 +20,6 @@ public class PlatformUserDO {
             columnDefinition = "int unsigned"
     )
     private Long userId;
-    private Timestamp gmtCreate;
-    private Timestamp gmtModified;
+    private Date gmtCreate;
+    private Date gmtModified;
 }

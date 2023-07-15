@@ -1,17 +1,36 @@
-INSERT INTO category(`category`, `introduction`, `create_time`, `top_postings`)
-VALUES( '竞赛', '竞赛相关帖子', UNIX_TIMESTAMP('2019-11-04 12:00:00'), NULL);
+INSERT INTO wall_role(`name`, `introduction`)
+VALUES( 'default_user', '用户的基础角色');
 
-INSERT INTO category(`category`, `introduction`, `create_time`, `top_postings`)
-VALUES( '拼车', '拼车相关帖子', UNIX_TIMESTAMP('2019-11-04 12:00:00'), NULL);
+INSERT INTO wall_role(`name`, `introduction`)
+VALUES( 'default_admin', '管理员的基础角色');
 
-INSERT INTO category(`category`, `introduction`, `create_time`, `top_postings`)
-VALUES( '失物招领', '失物招领相关帖子', UNIX_TIMESTAMP('2019-11-04 12:00:00'), NULL);
+INSERT INTO wall_permission(`permission`, `introduction`)
+VALUES( 'basic_retrieve', '基础查询权限');
 
-INSERT INTO category(`category`, `introduction`, `create_time`, `top_postings`)
-VALUES( '二手转卖', '二手转卖相关帖子', UNIX_TIMESTAMP('2019-11-04 12:00:00'), NULL);
+INSERT INTO wall_permission(`permission`, `introduction`)
+VALUES( 'basic_update', '基础更新权限');
 
-INSERT INTO category(`category`, `introduction`, `create_time`, `top_postings`)
-VALUES( '咨询求助', '咨询求助相关帖子', UNIX_TIMESTAMP('2019-11-04 12:00:00'), NULL);
+INSERT INTO wall_permission(`permission`, `introduction`)
+VALUES( 'basic_create', '基础创建权限');
 
-INSERT INTO category(`category`, `introduction`, `create_time`, `top_postings`)
-VALUES( '吐槽', '吐槽相关帖子', UNIX_TIMESTAMP('2019-11-04 12:00:00'), NULL);
+INSERT INTO wall_permission(`permission`, `introduction`)
+VALUES( 'basic_delete', '基础删除权限');
+
+
+INSERT INTO wall_role_permission_relation(`permission_id`, `role_id`)
+VALUES( 1, 1);
+
+INSERT INTO wall_role_permission_relation(`permission_id`, `role_id`)
+VALUES( 1, 2);
+
+INSERT INTO wall_role_permission_relation(`permission_id`, `role_id`)
+VALUES( 2, 1);
+
+INSERT INTO wall_role_permission_relation(`permission_id`, `role_id`)
+VALUES( 2, 2);
+
+INSERT INTO wall_role_permission_relation(`permission_id`, `role_id`)
+VALUES( 2, 3);
+
+INSERT INTO wall_role_permission_relation(`permission_id`, `role_id`)
+VALUES( 2, 4);

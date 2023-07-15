@@ -4,6 +4,8 @@ import com.oyoungy.util.PropertyUtils;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
@@ -18,8 +20,11 @@ import java.io.Serializable;
  * @author oyoungy
  * @since 2023/6/26
  */
+@Component
 public class WallPhysicalTableNamingStrategy extends CamelCaseToUnderscoresNamingStrategy implements Serializable {
 
+    @Value("${wall.table-prefix}")
+    private String tablePrefix;
 
     /**
      * 映射物理表名称，如：把实体表 UserDO 的 DO 去掉，再加上表前缀，最后转化为下划线格式
@@ -31,7 +36,7 @@ public class WallPhysicalTableNamingStrategy extends CamelCaseToUnderscoresNamin
     @Override
     public Identifier toPhysicalTableName(Identifier name, JdbcEnvironment jdbcEnvironment) {
 
-        String tablePrefix = PropertyUtils.getProperties().getProperty(WallServerConfigKey.TABLE_PREFIX);
+//        String tablePrefix = PropertyUtils.getProperties().getProperty(WallServerConfigKey.TABLE_PREFIX);
 
         String text = name.getText();
         String noDOText = StringUtils.endsWithIgnoreCase(text, "do") ? text.substring(0, text.length() - 2) : text;

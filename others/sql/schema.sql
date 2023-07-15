@@ -59,7 +59,8 @@ CREATE TABLE `wall_permission`(
 	`introduction` VARCHAR(200),
 	`gmt_create`   datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     `gmt_modified` datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '修改时间',
-	PRIMARY KEY(`id`)
+	PRIMARY KEY(`id`),
+	UNIQUE(`permission`)
 );
 
 DROP TABLE if EXISTS `wall_role`;
@@ -69,7 +70,8 @@ CREATE TABLE `wall_role`(
 	`introduction` VARCHAR(200),
 	`gmt_create`   datetime default CURRENT_TIMESTAMP not null comment '创建时间',
 	`gmt_modified` datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '修改时间',
-	PRIMARY KEY(`id`)
+	PRIMARY KEY(`id`),
+	UNIQUE(`name`)
 );
 
 DROP TABLE if EXISTS `wall_role_permission_relation`;
@@ -121,6 +123,7 @@ CREATE TABLE `wall_admin_login_log`(
 	PRIMARY KEY(`id`)
 );
 
+/* posting */
 DROP TABLE if EXISTS `posting`;
 CREATE table `posting`(
 	`id` BIGINT not NULL auto_increment,

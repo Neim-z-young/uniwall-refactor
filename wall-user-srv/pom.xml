@@ -14,13 +14,14 @@
 
     <properties>
         <java.version>12</java.version>
+        <wall.version>1.0-SNAPSHOT</wall.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.oyoungy</groupId>
             <artifactId>wall-web-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${wall.version}</version>
             <scope>compile</scope>
         </dependency>
 

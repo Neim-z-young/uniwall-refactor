@@ -14,10 +14,29 @@
 
     <properties>
         <java.version>12</java.version>
+        <wall.version>1.0-SNAPSHOT</wall.version>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.oyoungy</groupId>
+            <artifactId>wall-web-common</artifactId>
+            <version>${wall.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -3,9 +3,8 @@ logging:
     root: INFO
 spring:
   application:
-    name: user-srv
+    name: posting-srv
   profiles:
     active: dev
   config:
-    import: optional:configserver:http://localhost:7777
-
+    import: configserver:http://localhost:7777
