@@ -14,7 +14,6 @@ import java.util.Properties;
  * @author tjq
  * @since 2020/5/18
  */
-@Slf4j
 public class PropertyUtils {
 
     private static final Properties PROPERTIES = new Properties();

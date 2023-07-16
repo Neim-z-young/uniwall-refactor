@@ -6,6 +6,31 @@ spring:
     name: user-srv
   profiles:
     active: dev
-  config:
-    import: optional:configserver:http://localhost:7777
 
+---
+spring:
+  config:
+    activate:
+      on-profile: '!test'
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: configserver
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8989/eureka/
+
+---
+spring:
+  config:
+    activate:
+      on-profile: 'test'
+    import: 'optional:configserver:'

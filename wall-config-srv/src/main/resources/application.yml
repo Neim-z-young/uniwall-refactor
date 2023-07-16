@@ -14,3 +14,12 @@ spring:
           searchLocations: file:///H:/MY_OWN_CODE_FILE/universal-wall-refactor/others/config/{application}
   application:
     name: configserver
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8989/eureka/

@@ -188,7 +188,7 @@
     <module>wall-posting-srv</module>
     <module>wall-user-srv</module>
 <!--    <module>wall-single-arch</module>-->
-    <module>wall-register-srv</module>
+    <module>wall-registry-srv</module>
     <module>wall-config-srv</module>
     <module>wall-gateway-srv</module>
     <module>wall-operation-srv</module>
