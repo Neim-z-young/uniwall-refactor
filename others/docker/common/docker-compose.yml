@@ -1,0 +1,39 @@
+version: '2'
+services:
+  eurekaserver:
+    image:   oyoungy/wall-proj:registry
+    ports:
+      - "8989:8989"
+    environment:
+      EUREKASERVER_PORT: "8989"
+  configserver:
+    image: oyoungy/wall-proj:confsrv
+    ports:
+      - "7777:7777"
+    environment:
+      EUREKASERVER_URI: "http://eurekaserver:8989/eureka/"
+      EUREKASERVER_PORT: "8989"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+#      EUREKASERVER:       "host.docker.internal"
+      EUREKASERVER:       "eurekaserver"
+    volumes:
+      - type: volume
+        source: configserver-properties
+        target: /usr/local/wall/configserver/mount
+  userserver:
+    image: oyoungy/wall-proj:user-srv
+    ports:
+      - "8888:8888"
+    environment:
+      PROFILE: "dev"
+      EUREKASERVER_URI: "http://eurekaserver:8989/eureka/"
+      EUREKASERVER_PORT: "8989"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+      EUREKASERVER:       "eurekaserver"
+      DATABASESERVER: "host.docker.internal"
+      CONFIGSERVER: configserver
+
+volumes:
+  configserver-properties:
+    external: true
+

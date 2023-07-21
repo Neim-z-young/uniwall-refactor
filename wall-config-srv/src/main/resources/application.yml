@@ -11,7 +11,9 @@ spring:
     config:
       server:
         native:
-          searchLocations: file:///H:/MY_OWN_CODE_FILE/universal-wall-refactor/others/config/{application}
+          searchLocations:
+            - file:///H:/MY_OWN_CODE_FILE/universal-wall-refactor/others/config/{application}
+            - file:/usr/local/wall/configserver/mount/config/{application}
   application:
     name: configserver
 
