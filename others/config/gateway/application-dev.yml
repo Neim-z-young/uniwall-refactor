@@ -1,0 +1,35 @@
+configserver-name: localhost
+mysqlserver-name: localhost
+server:
+  port: 8080
+logging:
+   config: classpath:log4j2.xml
+spring:
+  jackson:
+    time-zone: GMT+8
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+
+      routes:
+        - id: conf-service
+          uri: lb://configserver
+          predicates:
+            - Path=/conf/**
+          filters:
+            - StripPrefix=1
+        - id: registry-service
+          uri: http://eurekaserver:8989
+          predicates:
+            - Path=/registry/**,/eureka/**
+          filters:
+            - RewritePath=/registry/?(?<segment>.*), /$\{segment}
+        - id: user-serivce
+          uri: lb://user-srv
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1

@@ -2,14 +2,14 @@ version: '2'
 services:
   eurekaserver:
     image:   oyoungy/wall-proj:registry
-    ports:
-      - "8989:8989"
+#    ports:
+#      - "8989:8989"
     environment:
       EUREKASERVER_PORT: "8989"
   configserver:
     image: oyoungy/wall-proj:confsrv
-    ports:
-      - "7777:7777"
+#    ports:
+#      - "7777:7777"
     environment:
       EUREKASERVER_URI: "http://eurekaserver:8989/eureka/"
       EUREKASERVER_PORT: "8989"
@@ -20,10 +20,20 @@ services:
       - type: volume
         source: configserver-properties
         target: /usr/local/wall/configserver/mount
+  geteway:
+    image: oyoungy/wall-proj:gateway
+    ports:
+      - "8080:8080"
+    environment:
+      PROFILE: "dev"
+      EUREKASERVER_URI: "http://eurekaserver:8989/eureka/"
+      EUREKASERVER_PORT: "8989"
+      EUREKASERVER: "eurekaserver"
+      CONFIGSERVER: configserver
   userserver:
     image: oyoungy/wall-proj:user-srv
-    ports:
-      - "8888:8888"
+#    ports:
+#      - "8888:8888"
     environment:
       PROFILE: "dev"
       EUREKASERVER_URI: "http://eurekaserver:8989/eureka/"
@@ -37,3 +47,7 @@ volumes:
   configserver-properties:
     external: true
 
+networks:
+  default:
+    name: my-wall-net
+    external: true

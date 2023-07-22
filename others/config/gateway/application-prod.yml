@@ -1,0 +1,23 @@
+configserver-name: localhost
+mysqlserver-name: localhost
+server:
+  port: 80
+logging:
+   config: classpath:log4j2.xml
+spring:
+  jackson:
+    time-zone: GMT+8
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+
+      routes:
+        - id: user-serivce
+          uri: lb://user-srv
+          predicates:
+            - Path=/user/**
+          filters:
+            - StripPrefix=1
