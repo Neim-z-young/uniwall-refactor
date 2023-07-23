@@ -1,6 +1,5 @@
 package com.oyoungy.config;
 
-import com.oyoungy.util.PropertyUtils;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;

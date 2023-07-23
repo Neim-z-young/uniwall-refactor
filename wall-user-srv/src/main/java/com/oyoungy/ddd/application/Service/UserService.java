@@ -87,7 +87,6 @@ public class UserService {
         tokenDTO.setRefreshToken(jwtTool.generateRefreshToken(user.getId().getId(), jwtTool.getJwtConf().getUserRole()));
         tokenDTO.setToken(jwtTool.generateAccessToken(user.getId().getId(), jwtTool.getJwtConf().getUserRole()));
         tokenDTO.setUserId(user.getId().getId());
-        log.info("secret:{}", jwtTool.getJwtConf().getSecret());
         return tokenDTO;
     }
 

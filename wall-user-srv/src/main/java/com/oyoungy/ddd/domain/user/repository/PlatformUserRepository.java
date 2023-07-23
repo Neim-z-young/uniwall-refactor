@@ -3,7 +3,7 @@ package com.oyoungy.ddd.domain.user.repository;
 import com.oyoungy.ddd.domain.user.entity.PlatformUser;
 import com.oyoungy.ddd.domain.user.entity.User;
 import com.oyoungy.ddd.domain.user.vo.PlatformUserId;
-import com.oyoungy.domain.repository.BaseRepository;
+import com.oyoungy.ddd.domain.repository.BaseRepository;
 
 import java.util.Optional;
 

@@ -33,3 +33,7 @@ spring:
             - Path=/user/**
           filters:
             - StripPrefix=1
+            - name: AuthCheck
+              args:
+                methodRegex: POST
+                exceptPaths: /*/refresh, /*/login, /user/register

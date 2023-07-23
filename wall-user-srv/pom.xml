@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.oyoungy</groupId>
-            <artifactId>wall-web-common</artifactId>
+            <artifactId>wall-web-data-common</artifactId>
             <version>${wall.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -31,10 +31,6 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

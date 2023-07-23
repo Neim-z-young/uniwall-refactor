@@ -1,4 +1,4 @@
-package com.oyoungy.domain.repository;
+package com.oyoungy.ddd.domain.repository;
 
 import java.util.Optional;
 

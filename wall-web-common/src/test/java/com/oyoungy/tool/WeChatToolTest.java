@@ -1,7 +1,5 @@
 package com.oyoungy.tool;
 
-import cn.hutool.json.JSONUtil;
-import com.oyoungy.util.WeChatTool;
 import org.junit.jupiter.api.Test;
 
 public class WeChatToolTest {

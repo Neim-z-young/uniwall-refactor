@@ -1,7 +1,8 @@
 package com.oyoungy.ddd.application.query;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 @Data
 public class PermissionQuery {
@@ -9,7 +10,7 @@ public class PermissionQuery {
     private String method;
 
     @NotNull
-    private Long user;
+    private String token;
 
     @NotNull
     private String url;

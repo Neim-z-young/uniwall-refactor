@@ -6,7 +6,7 @@ import com.oyoungy.ddd.domain.admin.vo.AdminId;
 import com.oyoungy.ddd.domain.permission.vo.PermissionId;
 import com.oyoungy.ddd.domain.permission.vo.RoleId;
 import com.oyoungy.ddd.domain.user.vo.UserId;
-import com.oyoungy.domain.repository.BaseRepository;
+import com.oyoungy.ddd.domain.repository.BaseRepository;
 
 import java.util.List;
 import java.util.Optional;

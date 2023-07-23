@@ -1,6 +1,6 @@
 package com.oyoungy.service;
 
-import com.oyoungy.auth.JwtUserToken;
+import com.oyoungy.auth.WallUserToken;
 import com.oyoungy.ddd.application.dto.ValidateUserDTO;
 import com.oyoungy.exceptions.WallBaseException;
 import org.springframework.security.core.Authentication;
@@ -13,12 +13,13 @@ import java.util.Optional;
 public class SessionService {
 
     public ValidateUserDTO getCurrentUser(){
+        //TODO 内部服务调用，使用简化token
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        JwtUserToken jwtUserToken = null;
-        if(authentication instanceof JwtUserToken){
-            jwtUserToken = (JwtUserToken) authentication;
+        WallUserToken wallUserToken = null;
+        if(authentication instanceof WallUserToken){
+            wallUserToken = (WallUserToken) authentication;
         }
-        Optional<ValidateUserDTO> res = Optional.ofNullable(jwtUserToken).map(user-> {
+        Optional<ValidateUserDTO> res = Optional.ofNullable(wallUserToken).map(user-> {
             ValidateUserDTO validateUserDTO = new ValidateUserDTO();
             validateUserDTO.setId((Long) user.getPrincipal());
             validateUserDTO.setRole((String) user.getCredentials());

@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.oyoungy</groupId>
-            <artifactId>wall-web-common</artifactId>
+            <artifactId>wall-web-data-common</artifactId>
             <version>${wall.version}</version>
         </dependency>
         <dependency>

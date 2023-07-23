@@ -6,55 +6,55 @@ import org.springframework.util.Assert;
 
 import java.util.Collection;
 
-public class JwtUserToken extends AbstractAuthenticationToken {
+public class WallUserToken extends AbstractAuthenticationToken {
 
     private final Long id;
-    private String credentials;
+    private String role;
 
     /**
      * This factory method can be safely used by any code that wishes to create a
-     * unauthenticated <code>JwtUserToken</code>.
+     * unauthenticated <code>WallUserToken</code>.
      * @param id
-     * @param credentials
-     * @return JwtUserToken with false isAuthenticated() result
+     * @param role
+     * @return WallUserToken with false isAuthenticated() result
      *
      * @since 5.7
      */
-    public static JwtUserToken unauthenticated(Long id, String credentials) {
-        return new JwtUserToken(id, credentials);
+    public static WallUserToken unauthenticated(Long id, String role) {
+        return new WallUserToken(id, role);
     }
 
     /**
      * This factory method can be safely used by any code that wishes to create a
-     * authenticated <code>JwtUserToken</code>.
+     * authenticated <code>WallUserToken</code>.
      * @param id
-     * @param credentials
-     * @return JwtUserToken with true isAuthenticated() result
+     * @param role
+     * @return WallUserToken with true isAuthenticated() result
      *
      * @since 5.7
      */
-    public static JwtUserToken authenticated(Long id, String credentials,
-                                             Collection<? extends GrantedAuthority> authorities) {
-        return new JwtUserToken(id, credentials, authorities);
+    public static WallUserToken authenticated(Long id, String role,
+                                              Collection<? extends GrantedAuthority> authorities) {
+        return new WallUserToken(id, role, authorities);
     }
 
-    private JwtUserToken(Long id, String credentials) {
+    private WallUserToken(Long id, String role) {
         super(null);
         this.id  = id;
-        this.credentials = credentials;
+        this.role = role;
         super.setAuthenticated(false);
     }
 
-    private JwtUserToken(Long id, String credentials, Collection<? extends GrantedAuthority> authorities) {
+    private WallUserToken(Long id, String role, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.id  = id;
-        this.credentials = credentials;
+        this.role = role;
         super.setAuthenticated(true);
     }
 
     @Override
     public Object getCredentials() {
-        return credentials;
+        return role;
     }
 
     @Override

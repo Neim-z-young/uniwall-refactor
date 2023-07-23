@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -133,7 +132,7 @@ public class JwtTool {
                     .parseClaimsJws(token)
                     .getBody();
         }catch (Exception e){
-           log.error("token 错误 " + e.getMessage());
+           log.error("token:{} 错误:{}", token, e.getMessage());
         }
         return claims;
     }
