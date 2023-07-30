@@ -35,7 +35,7 @@
         <spotify.docker.plugin.version>0.4.10</spotify.docker.plugin.version>
         <javax.version>1.1.1</javax.version>
         <javax.validation.version>2.0.1.Final</javax.validation.version>
-        <wall.version>1.0-SNAPSHOT</wall.version>
+        <wall.version>0.0.1-SNAPSHOT</wall.version>
     </properties>
 
     <dependencyManagement>

@@ -14,7 +14,6 @@
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <wall.version>1.0-SNAPSHOT</wall.version>
     <docker.image.name>oyoungy/wall-proj</docker.image.name>
     <docker.image.tag>confsrv</docker.image.tag>
 
@@ -23,7 +22,7 @@
     <dependency>
       <groupId>com.oyoungy</groupId>
       <artifactId>wall-web-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>${wall.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>

@@ -13,7 +13,6 @@
     <description>Postings of Posting project for oyoungy</description>
 
     <properties>
-        <wall.version>1.0-SNAPSHOT</wall.version>
     </properties>
 
     <dependencies>

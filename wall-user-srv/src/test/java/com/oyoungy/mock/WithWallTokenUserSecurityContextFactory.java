@@ -13,18 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WithWallTokenUserSecurityContextFactory implements WithSecurityContextFactory<WithMockCustomUser> {
-    @Autowired
-    private JwtTool jwtTool;
 
     @Override
     public SecurityContext createSecurityContext(WithMockCustomUser customUser) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(jwtTool.getJwtConf().getRolePrefix() + jwtTool.getJwtConf().getUserRole()));
 
         Authentication auth =
-                WallUserToken.authenticated(1L, "user", authorities);
+                WallUserToken.authenticated(-1L, "session_user", authorities);
         context.setAuthentication(auth);
         return context;
     }

@@ -13,7 +13,6 @@
     <description>User of Posting project for oyoungy</description>
 
     <properties>
-        <wall.version>1.0-SNAPSHOT</wall.version>
         <docker.image.name>oyoungy/wall-proj</docker.image.name>
         <docker.image.tag>user-srv</docker.image.tag>
     </properties>

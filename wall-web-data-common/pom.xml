@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.oyoungy</groupId>
   <artifactId>wall-web-data-common</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <name>wall-web-data-common</name>
   <url>http://maven.apache.org</url>
   <properties>

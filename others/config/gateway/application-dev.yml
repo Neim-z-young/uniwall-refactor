@@ -37,3 +37,11 @@ spring:
               args:
                 methodRegex: POST
                 exceptPaths: /*/refresh, /*/login, /user/register
+        - id: posting-serivce
+          uri: lb://posting-srv
+          predicates:
+            - Path=/posting/**
+          filters:
+            - name: AuthCheck
+              args:
+                methodRegex: POST
