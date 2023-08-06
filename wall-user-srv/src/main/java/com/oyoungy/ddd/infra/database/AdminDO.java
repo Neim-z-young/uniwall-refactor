@@ -24,9 +24,15 @@ public class AdminDO {
 
     private String phoneNumber;
 
-    private Byte status;
+    @Column(
+            columnDefinition = "tinyint"
+    )
+    private Integer status;
 
-    private Byte online;
+    @Column(
+            columnDefinition = "tinyint"
+    )
+    private Integer online;
 
     private Date lastLogin;
 

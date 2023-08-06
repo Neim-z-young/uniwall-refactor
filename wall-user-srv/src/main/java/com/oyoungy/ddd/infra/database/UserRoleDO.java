@@ -3,7 +3,7 @@ package com.oyoungy.ddd.infra.database;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -23,5 +23,5 @@ public class UserRoleDO {
 
     private Integer roleId;
 
-    private Timestamp gmtCreate;
+    private Date gmtCreate;
 }

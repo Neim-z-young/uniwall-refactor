@@ -14,7 +14,7 @@ public class UserDTO {
 
     private String phoneNumber;
 
-    private Integer online;
+    private String online;
 
     private Date lastLogin;
 

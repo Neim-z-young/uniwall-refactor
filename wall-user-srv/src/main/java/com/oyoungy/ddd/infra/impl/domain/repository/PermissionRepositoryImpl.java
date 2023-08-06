@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class PermissionRepositoryImpl implements PermissionRepository {
@@ -67,18 +68,22 @@ public class PermissionRepositoryImpl implements PermissionRepository {
 
     @Override
     public List<RoleId> findUserRoleId(UserId id) {
-        return userRoleDAO.findByUserId(id.getId()).
-                map(UserRoleDO::getRoleId).
-                map(doConverter::toRoleId).
-                collect(Collectors.toList());
+        try(Stream<UserRoleDO> userRoleDOStream = userRoleDAO.findByUserId(id.getId())){
+            return userRoleDOStream.
+                    map(UserRoleDO::getRoleId).
+                    map(doConverter::toRoleId).
+                    collect(Collectors.toList());
+        }
     }
 
     @Override
     public List<RoleId> findAdminRoleId(AdminId id) {
-        return adminRoleDAO.findByAdminId(id.getId()).
-                map(AdminRoleDO::getRoleId).
-                map(doConverter::toRoleId).
-                collect(Collectors.toList());
+        try(Stream<AdminRoleDO> adminRoleDOStream = adminRoleDAO.findByAdminId(id.getId())){
+            return adminRoleDOStream.
+                    map(AdminRoleDO::getRoleId).
+                    map(doConverter::toRoleId).
+                    collect(Collectors.toList());
+        }
     }
 
     @Override

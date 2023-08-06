@@ -15,7 +15,10 @@ public class UserInformationDO {
             columnDefinition = "int unsigned"
     )
     private Long userId;
-    private Byte gender;
+    @Column(
+            columnDefinition = "tinyint"
+    )
+    private Integer gender;
     private Integer growth;
     private Integer credit;
     private Date gmtCreate;

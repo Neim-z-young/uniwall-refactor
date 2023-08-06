@@ -14,6 +14,7 @@ public interface UserAssembler {
     UserAssembler INSTANCE = Mappers.getMapper(UserAssembler.class);
 
     @Mapping(source = "id.id", target = "id")
+    @Mapping(source = "online.msg", target = "online")
     UserDTO toUserDTO(User user);
 
     UserId toUserId(Long id);

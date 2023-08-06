@@ -18,15 +18,15 @@ public class UserDetailDTO {
 
     private String phoneNumber;
 
-    private Integer online;
+    private String online;
 
-    private Integer status;
+    private String status;
 
     private Date lastLogin;
 
     private Date gmtCreate;
 
-    private Integer gender;
+    private String gender;
     private Integer growth;
     private Integer credit;
 
@@ -40,11 +40,11 @@ public class UserDetailDTO {
         userDetailDTO.setNickname(userAgg.getUser().getNickname());
         userDetailDTO.setEmail(userAgg.getUser().getEmail());
         userDetailDTO.setPhoneNumber(userAgg.getUser().getPhoneNumber());
-        userDetailDTO.setOnline(userAgg.getUser().getOnline());
-        userDetailDTO.setStatus(userAgg.getUser().getStatus());
+        userDetailDTO.setOnline(userAgg.getUser().getOnline().getMsg());
+        userDetailDTO.setStatus(userAgg.getUser().getStatus().getMsg());
         userDetailDTO.setLastLogin(userAgg.getUser().getLastLogin());
         userDetailDTO.setGmtCreate(userAgg.getUser().getGmtCreate());
-        userDetailDTO.setGender(userAgg.getUserInfo().getGender());
+        userDetailDTO.setGender(userAgg.getUserInfo().getGender().getMsg());
         userDetailDTO.setGrowth(userAgg.getUserInfo().getGrowth());
         userDetailDTO.setCredit(userAgg.getUserInfo().getCredit());
 

@@ -1,6 +1,7 @@
 package com.oyoungy.ddd.domain.user.entity;
 
 import com.oyoungy.ddd.domain.user.vo.UserId;
+import com.oyoungy.enums.GenderEnum;
 import lombok.Data;
 
 import java.text.MessageFormat;
@@ -9,7 +10,7 @@ import java.util.Date;
 @Data
 public class UserInfo {
     private UserId id;
-    private Integer gender;
+    private GenderEnum gender;
     private Integer growth;
     private Integer credit;
     private Date gmtCreate;
@@ -18,7 +19,7 @@ public class UserInfo {
     public void init(UserId id){
         setId(id);
         setCredit(0);
-        setGender(0);
+        setGender(GenderEnum.NONE);
         setGrowth(0);
         setGmtCreate(new Date());
         setGmtModified(new Date());

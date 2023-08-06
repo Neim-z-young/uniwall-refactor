@@ -55,13 +55,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Transactional
     public void updateUserInfo(UserInfo userInfo) {
         userInfoDAO.update4CreateUser(userInfo.getId().getId(),
-                userInfo.getGender().byteValue(),
+                userInfo.getGender().getValue(),
                 userInfo.getGrowth(), userInfo.getCredit(), userInfo.getGmtModified(), userInfo.getGmtCreate());
         userInfoDAO.flush();
     }
 
     @Override
     public void update4UserLogin(User user) {
-        userDAO.update4Login(user.getId().getId(), user.getOnline().byteValue(), user.getLastLogin());
+        userDAO.update4Login(user.getId().getId(), user.getOnline().getValue(), user.getLastLogin());
     }
 }

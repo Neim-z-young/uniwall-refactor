@@ -17,6 +17,6 @@ public interface UserInfoDAO extends JpaRepository<UserInformationDO, Long> {
     @Modifying
     @CanIgnoreReturnValue
     @Query(value = "update UserInformationDO set gender = :gender,  growth = :growth, credit = :credit, gmtModified = :modifyTime, gmtCreate = :createTime where userId = :userId")
-    int update4CreateUser(@Param("userId") long userId, @Param("gender") byte gender, @Param("growth") int growth, @Param("credit") int credit, @Param("modifyTime") Date modifyTime, @Param("createTime") Date createTime);
+    int update4CreateUser(@Param("userId") long userId, @Param("gender") int gender, @Param("growth") int growth, @Param("credit") int credit, @Param("modifyTime") Date modifyTime, @Param("createTime") Date createTime);
 
 }

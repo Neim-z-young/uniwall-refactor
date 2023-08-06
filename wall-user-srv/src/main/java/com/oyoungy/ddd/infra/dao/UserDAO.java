@@ -17,6 +17,6 @@ public interface UserDAO extends JpaRepository<UserDO, Long> {
     @Modifying
     @CanIgnoreReturnValue
     @Query(value = "update UserDO set online = :online, lastLogin = :lastLogin where id = :userId")
-    int update4Login(@Param("userId") long userId, @Param("online") byte online, @Param("lastLogin") Date lastLogin);
+    int update4Login(@Param("userId") long userId, @Param("online") int online, @Param("lastLogin") Date lastLogin);
 
 }

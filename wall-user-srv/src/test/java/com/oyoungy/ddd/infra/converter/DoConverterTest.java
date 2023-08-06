@@ -7,6 +7,8 @@ import com.oyoungy.ddd.domain.user.vo.PlatformUserId;
 import com.oyoungy.ddd.domain.user.vo.UserId;
 import com.oyoungy.ddd.infra.database.PlatformUserDO;
 import com.oyoungy.ddd.infra.database.UserDO;
+import com.oyoungy.enums.OnlineEnum;
+import com.oyoungy.enums.StatusEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +23,8 @@ public class DoConverterTest {
         user.getId().setId(1000L);
         user.setEmail("123456@163.com");
         user.setGmtCreate(new Date());
+        user.setStatus(StatusEnum.UNAVAILABLE);
+        user.setOnline(OnlineEnum.OFFLINE);
         UserDO userDO = DoConverter.INSTANCE.toUserDO(user);
         Assertions.assertEquals(user.getId().getId(), userDO.getId());
         Assertions.assertEquals(user.getGmtCreate(), userDO.getGmtCreate());
@@ -32,14 +36,15 @@ public class DoConverterTest {
         userDO.setId(1000L);
         userDO.setEmail("123456@163.com");
         userDO.setGmtCreate(new Date());
-        userDO.setStatus((byte)1);
+        userDO.setStatus(1);
+        userDO.setOnline(0);
         User user = DoConverter.INSTANCE.toUser(userDO);
         Assertions.assertEquals(userDO.getId(), user.getId().getId());
         Assertions.assertEquals(userDO.getEmail(), user.getEmail());
         Assertions.assertEquals(userDO.getGmtCreate(), user.getGmtCreate());
         System.out.println(userDO.getStatus());
         System.out.println(user.getStatus());
-        Assertions.assertEquals((int)userDO.getStatus(), (int)user.getStatus());
+        Assertions.assertEquals(userDO.getStatus(), user.getStatus().getValue());
     }
 
     @Test

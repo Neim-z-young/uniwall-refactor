@@ -1,6 +1,8 @@
 package com.oyoungy.ddd.domain.admin.entity;
 
 import com.oyoungy.ddd.domain.admin.vo.AdminId;
+import com.oyoungy.enums.OnlineEnum;
+import com.oyoungy.enums.StatusEnum;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,8 +14,8 @@ public class Admin {
     private String password;
     private String email;
     private String phoneNumber;
-    private Integer status;
-    private Integer online;
+    private StatusEnum status;
+    private OnlineEnum online;
     private Date lastLogin;
     private Date gmtCreate;
     private Date gmtModified;

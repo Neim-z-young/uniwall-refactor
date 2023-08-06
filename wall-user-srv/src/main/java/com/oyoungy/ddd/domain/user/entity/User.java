@@ -1,9 +1,10 @@
 package com.oyoungy.ddd.domain.user.entity;
 
 import com.oyoungy.ddd.domain.user.vo.UserId;
+import com.oyoungy.enums.OnlineEnum;
+import com.oyoungy.enums.StatusEnum;
 import com.oyoungy.util.StringUtils;
 import lombok.Data;
-import org.springframework.util.ObjectUtils;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -18,8 +19,8 @@ public class User {
     private String password;
     private String email;
     private String phoneNumber;
-    private Integer status;
-    private Integer online;
+    private StatusEnum status;
+    private OnlineEnum online;
     private Date lastLogin;
     private Date gmtCreate;
     private Date gmtModified;
@@ -28,8 +29,8 @@ public class User {
         setId(null);
         setGmtCreate(new Date());
         setPhoneNumber(null);
-        setStatus(1);
-        setOnline(0);
+        setStatus(StatusEnum.USABLE);
+        setOnline(OnlineEnum.OFFLINE);
         setLastLogin(null);
         setGmtModified(new Date());
         setGmtModified(new Date());
@@ -43,7 +44,7 @@ public class User {
         if(id == null){
             throw new IllegalStateException("用户不存在");
         }
-        setOnline(1);
+        setOnline(OnlineEnum.ONLINE);
         setLastLogin(new Date());
     }
 }
