@@ -1,3 +1,7 @@
+configserver-name: localhost
+mysqlserver-name: localhost
+kafka1-server-name: localhost
+
 server:
   port: 9999
 logging:
@@ -10,7 +14,7 @@ spring:
         physicalStrategy: com.oyoungy.config.WallPhysicalTableNamingStrategy
     show-sql: true
   datasource:
-    url: jdbc:mysql://localhost:3306/universal-wall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC  # Asia/Shanghai
+    url: jdbc:mysql://${mysqlserver-name}:3306/universal-wall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC  # Asia/Shanghai
     username: root
     password: 
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -25,3 +29,30 @@ spring:
       mode: never
   jackson:
     time-zone: GMT+8
+
+
+  cloud:
+    function:
+      definition: approvingCategory
+    stream:
+      instanceCount: 1
+      instanceIndex: 0
+      bindings:
+        category-event:
+          destination: category-topic
+          group: logging
+          consumer:
+            partitioned: true
+          producer:
+            partitionCount: 2
+
+      function:
+        autodetect: false
+        bindings:
+          approvingCategory-in-0: category-event
+
+      kafka:
+        binder:
+          brokers: ${kafka1-server-name}:9094
+          autoCreateTopics: true
+          autoAddPartitions: true

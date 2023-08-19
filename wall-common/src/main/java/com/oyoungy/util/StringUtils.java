@@ -22,6 +22,23 @@ public class StringUtils {
     }
 
     /**
+     * 剪切origin字符串的前len长的字串。
+     * 原字符串长度小于len则返回原字符串
+     * @param origin
+     * @param len
+     * @return
+     */
+    public static String cutStringHead(String origin, int len, String postfix){
+        if(postfix == null){
+            return cutStringHead(origin, len);
+        }
+        if(len < postfix.length()){
+            return postfix;
+        }
+        return cutStringHead(origin, len - postfix.length()) + postfix;
+    }
+
+    /**
      * 生成随机字符串，长度最大限制为64
      * @param len
      * @return

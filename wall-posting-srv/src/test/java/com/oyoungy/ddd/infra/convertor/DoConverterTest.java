@@ -18,17 +18,11 @@ class DoConverterTest {
         categoryDO.setCreateUserId(12L);
         categoryDO.setGmtCreate(new Date());
         categoryDO.setId(123L);
-        categoryDO.setTopPostings("12345;1236;555");
+        categoryDO.setState(1);
         Category category = doConverter.toCategory(categoryDO);
         System.out.println(category);
         CategoryDO categoryDO1 = doConverter.toCategoryDO(category);
         assertEquals(categoryDO, categoryDO1);
 
-        categoryDO.setTopPostings("-12345;1234;asdasf");
-        category = doConverter.toCategory(categoryDO);
-        System.out.println(category);
-        category.setTopPostings(null);
-        categoryDO1 = doConverter.toCategoryDO(category);
-        assertEquals("", categoryDO1.getTopPostings());
     }
 }

@@ -3,27 +3,35 @@ package com.oyoungy.ddd.infra.database;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.Date;
 
-@Data
 @Entity
-public class CategoryDO {
+@Data
+public class RemarkDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
-            columnDefinition = "int unsigned"
+            columnDefinition = "bigint unsigned"
     )
-    private Long id;
-    private String category;
-    private String introduction;
+    private BigInteger id;
+    @Column(
+            columnDefinition = "bigint unsigned"
+    )
+    private BigInteger postingId;
     @Column(
             columnDefinition = "int unsigned"
     )
-    private Long createUserId;
+    private Long userId;
+
+    private String content;
+
     @Column(
             columnDefinition = "tinyint"
     )
     private Integer state;
+
     private Date gmtCreate;
+
     private Date gmtModified;
 }

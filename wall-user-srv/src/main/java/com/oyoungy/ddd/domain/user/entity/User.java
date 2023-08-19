@@ -33,7 +33,6 @@ public class User {
         setOnline(OnlineEnum.OFFLINE);
         setLastLogin(null);
         setGmtModified(new Date());
-        setGmtModified(new Date());
         setNickname(Optional.ofNullable(nickname).
                 orElse(MessageFormat.format("user_{0}", StringUtils.generateRandomString(6))));
         Objects.requireNonNull(password);

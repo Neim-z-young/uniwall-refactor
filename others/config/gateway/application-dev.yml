@@ -40,8 +40,8 @@ spring:
         - id: posting-serivce
           uri: lb://posting-srv
           predicates:
-            - Path=/posting/**
+            - Path=/posting/**,/category/**
           filters:
             - name: AuthCheck
               args:
-                methodRegex: POST
+                methodRegex: NONE
