@@ -1,6 +1,6 @@
 package com.oyoungy.exceptions;
 
-public class WallBaseException extends RuntimeException {
+public class WallBaseException extends Exception {
     public WallBaseException() {
     }
 

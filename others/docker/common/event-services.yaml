@@ -1,0 +1,95 @@
+version: '2'
+services:
+  zoo1:
+    image: zookeeper:latest
+    ports:
+      - 2181:2181
+
+  kafka1:
+    image: bitnami/kafka
+    profiles:
+      - prod
+    depends_on:
+      - zoo1
+    ports:
+      - 9095:9095
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181/kafka_cluster1
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka1:9092,OUTSIDE://localhost:9095
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9095
+      KAFKA_ADVITESED_HOST_NAME: kafka1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+
+  kafka2:
+    image: bitnami/kafka
+    profiles:
+      - prod
+    depends_on:
+      - zoo1
+    ports:
+      - 9096:9096
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181/kafka_cluster1
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka2:9092,OUTSIDE://localhost:9096
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9096
+      KAFKA_ADVITESED_HOST_NAME: kafka2
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+
+  kafka3:
+    image: bitnami/kafka
+    profiles:
+      - prod
+    depends_on:
+      - zoo1
+    ports:
+      - 9097:9097
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181/kafka_cluster1
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka3:9092,OUTSIDE://localhost:9097
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9097
+      KAFKA_ADVITESED_HOST_NAME: kafka3
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+
+  kafka1-dev:
+    image: bitnami/kafka
+    profiles:
+      - dev
+    depends_on:
+      - zoo1
+    ports:
+      - 9091:9091
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181/kafka_cluster_dev
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka1-dev:9092,OUTSIDE://localhost:9091
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9091
+      KAFKA_ADVITESED_HOST_NAME: kafka1-dev
+
+  kafka-manager:
+    image: sheepkiller/kafka-manager
+    ports:
+      - 9000:9000
+    depends_on:
+      - zoo1
+    environment:
+        ZK_HOSTS: zoo1:2181
+
+
+networks:
+  default:
+    name: my-wall-net
+    external: true

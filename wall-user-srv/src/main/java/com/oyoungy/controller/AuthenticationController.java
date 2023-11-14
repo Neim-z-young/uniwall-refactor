@@ -25,6 +25,7 @@ public class AuthenticationController {
 
     @PostMapping
     ResultDTO<Void> check(@Validated @RequestBody PermissionQuery permissionQuery){
+        //todo implement url check
         String token = permissionQuery.getToken();
         if (jwtTool.validateAccess(token)) {
             Long userId = jwtTool.getUserIdFromToken(token);

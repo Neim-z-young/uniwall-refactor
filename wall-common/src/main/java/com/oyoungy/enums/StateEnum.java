@@ -24,4 +24,12 @@ public enum StateEnum {
         throw new IllegalArgumentException("unknown StateEnum of " + value);
     }
 
+    public static StateEnum of(String msg){
+        for(StateEnum state: values()){
+            if(state.msg.equals(msg)){
+                return state;
+            }
+        }
+        throw new IllegalArgumentException("unknown StateEnum of " + msg);
+    }
 }

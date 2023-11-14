@@ -13,6 +13,8 @@
     <description>Postings of Posting project for oyoungy</description>
 
     <properties>
+        <docker.image.name>oyoungy/wall-proj</docker.image.name>
+        <docker.image.tag>posting-srv</docker.image.tag>
     </properties>
 
     <dependencies>
@@ -43,6 +45,18 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream-binder-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+            <classifier>test-binder</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

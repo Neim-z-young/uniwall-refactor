@@ -4,6 +4,8 @@ import com.oyoungy.ddd.application.command.AddPostingCommand;
 import com.oyoungy.ddd.application.dto.*;
 import com.oyoungy.ddd.application.query.PageQuery;
 import com.oyoungy.ddd.application.service.PostingService;
+import com.oyoungy.exceptions.WallBaseException;
+import com.oyoungy.exceptions.WallNotFoundException;
 import com.oyoungy.response.ResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -34,7 +36,7 @@ public class PostingController {
     }
 
     @GetMapping("/")
-    ResultDTO<PostingQueryDTO> getPosting(@RequestParam BigInteger postingId){
+    ResultDTO<PostingQueryDTO> getPosting(@RequestParam(name = "postingId") BigInteger postingId) throws WallBaseException {
         return ResultDTO.success(postingService.queryPostingById(postingId));
     }
 
@@ -43,8 +45,8 @@ public class PostingController {
         return ResultDTO.success(postingService.addPosting(addPostingCommand));
     }
 
-    @DeleteMapping("/{postingId}")
-    ResultDTO<Void> deletePosting(@PathVariable BigInteger postingId){
+    @DeleteMapping("/")
+    ResultDTO<Void> deletePosting(@RequestParam(name = "postingId") BigInteger postingId) throws WallNotFoundException {
         postingService.deletePosting(postingId);
         return ResultDTO.success(null);
     }

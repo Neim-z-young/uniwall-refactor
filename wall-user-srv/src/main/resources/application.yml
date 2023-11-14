@@ -11,7 +11,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: '!test'
+      on-profile: '!ut'
     import: 'optional:configserver:'
   cloud:
     config:
@@ -32,5 +32,5 @@ eureka:
 spring:
   config:
     activate:
-      on-profile: 'test'
+      on-profile: 'ut'
     import: 'optional:configserver:'

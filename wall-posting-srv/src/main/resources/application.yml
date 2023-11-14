@@ -11,7 +11,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: '!test'
+      on-profile: '!ut'
     import: 'optional:configserver:'
   cloud:
     config:
@@ -27,3 +27,10 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://localhost:8989/eureka/
+
+---
+spring:
+  config:
+    activate:
+      on-profile: 'ut'
+    import: 'optional:configserver:'

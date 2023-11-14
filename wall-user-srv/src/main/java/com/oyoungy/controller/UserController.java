@@ -8,6 +8,8 @@ import com.oyoungy.ddd.application.dto.UserDTO;
 import com.oyoungy.ddd.application.command.UserRegisterCommand;
 import com.oyoungy.ddd.application.dto.UserDetailDTO;
 import com.oyoungy.ddd.application.dto.ValidateUserDTO;
+import com.oyoungy.exceptions.WallBaseException;
+import com.oyoungy.exceptions.WallNotFoundException;
 import com.oyoungy.response.ResultDTO;
 import com.oyoungy.service.SessionService;
 import lombok.extern.slf4j.Slf4j;
@@ -31,22 +33,22 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    ResultDTO<UserDTO> findUser(@PathVariable long id){
+    ResultDTO<UserDTO> findUser(@PathVariable long id) throws WallNotFoundException {
         return ResultDTO.success(userService.queryUser(id));
     }
 
     @GetMapping("/info/{id}")
-    ResultDTO<UserDetailDTO> findUserInfo(@PathVariable long id){
+    ResultDTO<UserDetailDTO> findUserInfo(@PathVariable long id) throws WallNotFoundException {
         return ResultDTO.success(userService.queryUserDetail(id));
     }
 
     @PostMapping("/login")
-    ResultDTO<TokenDTO> login(@RequestBody UserLoginCommand userLoginCommand){
+    ResultDTO<TokenDTO> login(@RequestBody UserLoginCommand userLoginCommand) throws WallBaseException {
         return ResultDTO.success(userService.login(userLoginCommand));
     }
 
     @PostMapping("/validate")
-    ResultDTO<ValidateUserDTO> validate(){
+    ResultDTO<ValidateUserDTO> validate() throws WallBaseException {
         return ResultDTO.success(sessionService.getCurrentUser());
     }
 

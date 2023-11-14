@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class AuthConfig {
     @Bean
-    @Profile("!dev")
+    @Profile({"test", "prod"})
     public WallSessionTokenFilter wallSessionTokenFilter(SessionTokenService sessionTokenService){
         WallSessionTokenFilter wallSessionTokenFilter = new WallSessionTokenFilter();
         wallSessionTokenFilter.setSessionTokenService(sessionTokenService);

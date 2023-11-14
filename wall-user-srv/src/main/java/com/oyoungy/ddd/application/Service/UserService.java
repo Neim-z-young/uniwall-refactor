@@ -49,7 +49,7 @@ public class UserService {
 
     private UserAssembler userAssembler = UserAssembler.INSTANCE;
 
-    public UserDTO queryUser(Long id){
+    public UserDTO queryUser(Long id) throws WallNotFoundException{
         UserId userId = userAssembler.toUserId(id);
         Optional<User> user = userRepository.findOne(userId);
         return userAssembler.toUserDTO(
@@ -58,7 +58,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserDetailDTO queryUserDetail(Long id){
+    public UserDetailDTO queryUserDetail(Long id) throws WallNotFoundException{
         UserId userId = userAssembler.toUserId(id);
         UserAgg user = userAggDomainService.findOne(userId);
         UserDetailDTO detailDTO = UserDetailDTO.fromUserAgg(user);
@@ -79,7 +79,7 @@ public class UserService {
         return userAssembler.toUserDTO(userAgg.getUser());
     }
 
-    public TokenDTO login(UserLoginCommand userLoginCommand){
+    public TokenDTO login(UserLoginCommand userLoginCommand) throws WallBaseException{
         User tmpUser = userAssembler.toUser(userLoginCommand);
         User user = userAggDomainService.login(tmpUser);
 

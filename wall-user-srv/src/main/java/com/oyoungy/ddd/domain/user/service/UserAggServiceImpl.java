@@ -7,6 +7,7 @@ import com.oyoungy.ddd.domain.user.entity.UserInfo;
 import com.oyoungy.ddd.domain.user.repository.UserRepository;
 import com.oyoungy.ddd.domain.permission.vo.RoleId;
 import com.oyoungy.ddd.domain.user.vo.UserId;
+import com.oyoungy.exceptions.WallAuthFailException;
 import com.oyoungy.exceptions.WallBaseException;
 import com.oyoungy.exceptions.WallNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -56,12 +57,12 @@ public class UserAggServiceImpl implements UserAggService {
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public User login(User tmpUser){
+    public User login(User tmpUser) throws WallBaseException {
         Optional<User> userOp = userRepository.findOne(tmpUser.getId());
         User user = userOp.orElseThrow(
                 () -> new WallNotFoundException(MessageFormat.format("用户{0}不存在", tmpUser.getId())));
         if(!passwordEncoder.matches(tmpUser.getPassword(), user.getPassword())){
-            throw new WallBaseException("密码错误");
+            throw new WallAuthFailException("密码错误");
         }
         user.login();
         userRepository.update4UserLogin(user);
@@ -70,7 +71,7 @@ public class UserAggServiceImpl implements UserAggService {
 
     @Transactional(readOnly = true)
     @Override
-    public UserAgg findOne(UserId id) {
+    public UserAgg findOne(UserId id) throws WallNotFoundException {
 
         Optional<User> user = userRepository.findOne(id);
         Optional<UserAgg> resOp = user.map(u -> {

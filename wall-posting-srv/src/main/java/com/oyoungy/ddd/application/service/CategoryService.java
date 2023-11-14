@@ -4,6 +4,7 @@ import com.oyoungy.ddd.application.assembler.PostingAssembler;
 import com.oyoungy.ddd.application.command.AddCategoryCommand;
 import com.oyoungy.ddd.application.dto.CategoryDTO;
 import com.oyoungy.ddd.application.dto.PageDTO;
+import com.oyoungy.ddd.application.event.CategoryApprovedEvent;
 import com.oyoungy.ddd.application.event.CategoryApprovingEvent;
 import com.oyoungy.ddd.application.query.PageQuery;
 import com.oyoungy.ddd.domain.entity.Category;
@@ -85,6 +86,8 @@ public class CategoryService {
         category.init();
         category = categoryRepository.save(category);
 
+        //todo 使用@TransactionEventListener实现事务提交后再发送事件。
+        //todo 使用@Async异步执行事件发送。
         CategoryApprovingEvent categoryAddingEvent = new CategoryApprovingEvent();
         categoryAddingEvent.setApprovingMsg("待创建");
         categoryAddingEvent.setCategory(category.getCategory());
@@ -97,7 +100,7 @@ public class CategoryService {
     }
 
 
-    public void deleteCategory(Long id){
+    public void deleteCategory(Long id) throws WallNotFoundException{
         CategoryId categoryId = new CategoryId();
         categoryId.setId(id);
         Optional<Category> categoryOp = categoryRepository.findOne(categoryId);
@@ -112,21 +115,32 @@ public class CategoryService {
         categoryDeletingEvent.setState(StateEnum.APPROVING.getMsg());
         categoryDeletingEvent.setCategoryId(category.getId().getId());
         categoryDeletingEvent.setApprovingUserId(null);
-        log.info("send deleting event");
+        log.info("send category deleting event");
         streamBridge.send("category-event", categoryDeletingEvent);
     }
 
     @Bean
     public Consumer<CategoryApprovingEvent> approvingCategory(){
         return event -> {
-            log.info("received event:{}", event);
-            approved(event);
+            log.info("received category approving event:{}", event);
         };
     }
 
-    @SneakyThrows
+    @Bean
+    public Consumer<CategoryApprovedEvent> approvedCategory(){
+        return event -> {
+            log.info("received event:{}", event);
+            try{
+                approved(event);
+            }
+            catch (WallNotFoundException ex){
+                log.error("EventHandleError:{}", ex.getMessage());
+            }
+        };
+    }
+
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public void approved(CategoryApprovingEvent event){
+    public void approved(CategoryApprovedEvent event) throws WallNotFoundException {
         CategoryId categoryId = new CategoryId();
         categoryId.setId(event.getCategoryId());
         Optional<Category> categoryOp = categoryRepository.findOne(categoryId);
@@ -141,6 +155,9 @@ public class CategoryService {
             category.deleted();
         }else if(operationEnum.equals(OperationEnum.CREATE)){
             category.created();
+        }
+        if(StateEnum.of(event.getState()).equals(StateEnum.DENIED)){
+            category.approvedFailed();
         }
         categoryRepository.updateState(category);
     }

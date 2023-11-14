@@ -27,4 +27,4 @@ java -Djava.security.egd=file:/dev/./urandom \
      -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI \
      -Dmysqlserver-name=$DATABASESERVER \
      -Dconfigserver-name=$CONFIGSERVER \
-     -jar /usr/local/wall/userserver/@project.build.finalName@.jar
+     -jar /usr/local/wall/app.jar

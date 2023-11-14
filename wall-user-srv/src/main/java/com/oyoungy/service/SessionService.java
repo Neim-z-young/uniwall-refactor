@@ -2,6 +2,7 @@ package com.oyoungy.service;
 
 import com.oyoungy.auth.WallUserToken;
 import com.oyoungy.ddd.application.dto.ValidateUserDTO;
+import com.oyoungy.exceptions.WallAuthFailException;
 import com.oyoungy.exceptions.WallBaseException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,8 +13,7 @@ import java.util.Optional;
 @Service
 public class SessionService {
 
-    public ValidateUserDTO getCurrentUser(){
-        //TODO 内部服务调用，使用简化token
+    public ValidateUserDTO getCurrentUser() throws WallAuthFailException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WallUserToken wallUserToken = null;
         if(authentication instanceof WallUserToken){
@@ -25,6 +25,6 @@ public class SessionService {
             validateUserDTO.setRole((String) user.getCredentials());
             return validateUserDTO;
         });
-        return res.orElseThrow(()->new WallBaseException("用户未登录"));
+        return res.orElseThrow(()->new WallAuthFailException("用户未登录"));
     }
 }

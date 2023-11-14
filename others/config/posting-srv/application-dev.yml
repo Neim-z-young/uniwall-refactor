@@ -1,6 +1,6 @@
 configserver-name: localhost
 mysqlserver-name: localhost
-kafka1-server-name: localhost
+kafka-brokers: localhost:9094
 
 server:
   port: 9999
@@ -16,7 +16,7 @@ spring:
   datasource:
     url: jdbc:mysql://${mysqlserver-name}:3306/universal-wall?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC  # Asia/Shanghai
     username: root
-    password: 
+    password: secret
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
@@ -33,7 +33,7 @@ spring:
 
   cloud:
     function:
-      definition: approvingCategory
+      definition: approvedCategory;approvedPosting;approvingCategory;approvingPosting
     stream:
       instanceCount: 1
       instanceIndex: 0
@@ -45,14 +45,37 @@ spring:
             partitioned: true
           producer:
             partitionCount: 2
-
+        category-a-event:
+          destination: category-a-topic
+          group: post-approved
+          consumer:
+            partitioned: true
+          producer:
+            partitionCount: 2
+        posting-event:
+          destination: posting-topic
+          group: logging
+          consumer:
+            partitioned: true
+          producer:
+            partitionCount: 2
+        posting-a-event:
+          destination: posting-a-topic
+          group: post-approved
+          consumer:
+            partitioned: true
+          producer:
+            partitionCount: 2
       function:
         autodetect: false
         bindings:
+          approvedCategory-in-0: category-a-event
+          approvedPosting-in-0: posting-a-event
+          approvingPosting-in-0: posting-event
           approvingCategory-in-0: category-event
 
       kafka:
         binder:
-          brokers: ${kafka1-server-name}:9094
+          brokers: ${kafka-brokers}
           autoCreateTopics: true
           autoAddPartitions: true
