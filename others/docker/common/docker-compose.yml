@@ -46,7 +46,7 @@ services:
       CONFIGSERVER: configserver
   userserver:
     image: oyoungy/wall-proj:user-srv
-    restart: always
+#    restart: always
     depends_on:
       - eurekaserver
       - configserver
