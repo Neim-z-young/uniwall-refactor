@@ -13,7 +13,6 @@ import com.oyoungy.ddd.domain.vo.CategoryId;
 import com.oyoungy.enums.OperationEnum;
 import com.oyoungy.enums.StateEnum;
 import com.oyoungy.exceptions.WallNotFoundException;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.function.StreamBridge;
@@ -95,7 +94,7 @@ public class CategoryService {
         categoryAddingEvent.setState(StateEnum.APPROVING.getMsg());
         categoryAddingEvent.setCategoryId(category.getId().getId());
         categoryAddingEvent.setApprovingUserId(null);
-        streamBridge.send("category-event", categoryAddingEvent);
+        streamBridge.send("category-event-out", categoryAddingEvent);
         return assembler.toCategoryDTO(category);
     }
 
@@ -116,7 +115,7 @@ public class CategoryService {
         categoryDeletingEvent.setCategoryId(category.getId().getId());
         categoryDeletingEvent.setApprovingUserId(null);
         log.info("send category deleting event");
-        streamBridge.send("category-event", categoryDeletingEvent);
+        streamBridge.send("category-event-out", categoryDeletingEvent);
     }
 
     @Bean

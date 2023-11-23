@@ -6,7 +6,6 @@ import com.oyoungy.ddd.application.dto.PageDTO;
 import com.oyoungy.ddd.application.dto.PostingBriefDTO;
 import com.oyoungy.ddd.application.dto.PostingQueryDTO;
 import com.oyoungy.ddd.application.dto.PostingStateDTO;
-import com.oyoungy.ddd.application.event.CategoryApprovingEvent;
 import com.oyoungy.ddd.application.event.PostingApprovedEvent;
 import com.oyoungy.ddd.application.event.PostingApprovingEvent;
 import com.oyoungy.ddd.application.query.PageQuery;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -103,7 +101,7 @@ public class PostingService {
         postingAddingEvent.setOperation(OperationEnum.CREATE.getMsg());
         postingAddingEvent.setState(StateEnum.APPROVING.getMsg());
         postingAddingEvent.setApprovingUserId(null);
-        streamBridge.send("posting-event", postingAddingEvent);
+        streamBridge.send("posting-event-out", postingAddingEvent);
         return assembler.toPostingStateDTO(posting);
     }
 
@@ -124,7 +122,7 @@ public class PostingService {
         postingDeletingEvent.setState(StateEnum.APPROVING.getMsg());
         postingDeletingEvent.setApprovingUserId(null);
         log.info("send posting deleting event");
-        streamBridge.send("posting-event", postingDeletingEvent);
+        streamBridge.send("posting-event-out", postingDeletingEvent);
     }
 
     @Bean

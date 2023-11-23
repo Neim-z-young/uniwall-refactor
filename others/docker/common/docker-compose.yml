@@ -3,7 +3,7 @@ include:
   - event-services.yaml
 services:
   eurekaserver:
-    restart: always
+    restart: unless-stopped
     image:   oyoungy/wall-proj:registry
     healthcheck:
       test: [ "CMD-SHELL", "curl -sS localhost:8989 || exit 1" ]
@@ -18,7 +18,7 @@ services:
       EUREKASERVER_PORT: "8989"
   configserver:
     image: oyoungy/wall-proj:confsrv
-    restart: always
+    restart: unless-stopped
     depends_on:
       - eurekaserver
     ports:
@@ -32,7 +32,7 @@ services:
       - configserver-properties:/usr/local/wall/mount
   geteway:
     image: oyoungy/wall-proj:gateway
-    restart: always
+    restart: unless-stopped
     depends_on:
       - eurekaserver
       - configserver
@@ -46,7 +46,7 @@ services:
       CONFIGSERVER: configserver
   userserver:
     image: oyoungy/wall-proj:user-srv
-#    restart: always
+    restart: no
     depends_on:
       - eurekaserver
       - configserver
@@ -62,13 +62,13 @@ services:
 
   postingserver:
     image: oyoungy/wall-proj:posting-srv
-    restart: always
+    restart: no
     depends_on:
       - eurekaserver
       - configserver
       - zoo1
     ports:
-      - "8888:8888"
+      - "9999:9999"
     environment:
       PROFILE: "dev"
       EUREKASERVER_URI: "http://eurekaserver:8989/eureka/"
@@ -76,7 +76,9 @@ services:
       EUREKASERVER: "eurekaserver"
       DATABASESERVER: "host.docker.internal"
       CONFIGSERVER: configserver
-      KAFKABROKERS: "kafka1:9092;kafka2:9092;kafka3:9092"
+#      KAFKABROKERS: "kafka1:9092;kafka2:9092;kafka3:9092"
+      KAFKABROKERS: "kafka1-dev:9092"
+
 volumes:
   configserver-properties:
     external: true

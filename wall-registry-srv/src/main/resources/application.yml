@@ -19,3 +19,6 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+  server:
+    enableSelfPreservation: false  # 关闭自我保护机制，在自我保护机制下，服务列表不会剔除无效服务
+    eviction-interval-timer-in-ms: 3000  # 失效服务主动下线

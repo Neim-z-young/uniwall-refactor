@@ -35,44 +35,46 @@ spring:
     function:
       definition: approvedCategory;approvedPosting;approvingCategory;approvingPosting
     stream:
+      defaultBinder: kafka
       instanceCount: 1
       instanceIndex: 0
+      function:
+        autodetect: false
+        bindings:
+          approvedCategory-in-0: category-a-event-in
+          approvedPosting-in-0: posting-a-event-in
+          approvingPosting-in-0: posting-event-in
+          approvingCategory-in-0: category-event-in
       bindings:
-        category-event:
+        category-event-in:
           destination: category-topic
           group: logging
           consumer:
             partitioned: true
-          producer:
-            partitionCount: 2
-        category-a-event:
+        category-a-event-in:
           destination: category-a-topic
           group: post-approved
           consumer:
             partitioned: true
-          producer:
-            partitionCount: 2
-        posting-event:
+        posting-event-in:
           destination: posting-topic
           group: logging
           consumer:
             partitioned: true
-          producer:
-            partitionCount: 2
-        posting-a-event:
+        posting-a-event-in:
           destination: posting-a-topic
           group: post-approved
           consumer:
             partitioned: true
+
+        category-event-out:
+          destination: category-topic
           producer:
             partitionCount: 2
-      function:
-        autodetect: false
-        bindings:
-          approvedCategory-in-0: category-a-event
-          approvedPosting-in-0: posting-a-event
-          approvingPosting-in-0: posting-event
-          approvingCategory-in-0: category-event
+        posting-event-out:
+          destination: posting-topic
+          producer:
+            partitionCount: 2
 
       kafka:
         binder:
