@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="common.configserver: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" activateToolWindowBeforeRun="false" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="envFilePath" value="" />
+        <option name="services">
+          <list>
+            <option value="configserver" />
+          </list>
+        </option>
+        <option name="sourceFilePath" value="others/docker/common/docker-compose.yml" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>
